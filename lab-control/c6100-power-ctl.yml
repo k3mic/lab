@@ -1,0 +1,11 @@
+---
+- name: Control the C6100 nodes power status
+  hosts: c6100-ipmi
+  gather_facts: false
+  vars:
+    state: on #or shutdown for graceful
+  tasks:
+  - name: "Change the power state of c6100 nodes to {{ state }}"
+    command: "ipmitool -H {{ inventory_hostname }} -U root -P root chassis power {{ state }}"
+    delegate_to: localhost
+      

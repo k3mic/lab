@@ -1,0 +1,12 @@
+---
+- name: Install configure oVirt node 
+  hosts: c6100
+  vars:
+  become_user: root
+  become: true
+  tasks:
+  - name: Setup repo
+    yum:
+      name: https://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm
+      state: installed
+      
