@@ -10,3 +10,16 @@
       name: https://resources.ovirt.org/pub/yum-repo/ovirt-release42.rpm
       state: installed
       
+  - name: Create /etc/vdsm
+    file: 
+      state: directory
+      path: /etc/vdsm
+
+  - name: Check to see if we already have a UUID
+    command: test -f /etc/vsdm/vdsm.id
+    register: uuidgen_check
+    failed_when: false
+
+  - name: Generate UUID for /etc/vsdm/vdsm.id
+    shell: uuidgen > /etc/vsdm/vdsm.id
+    when: uuidgen_check.rc != 0
